@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import styles from "./SearchBar.module.css";
 import toast from "react-hot-toast";
 
@@ -33,6 +33,11 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
       window.localStorage.removeItem("query");
     }
   }, [query]);
+
+  const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    const value = ev.target.value;
+    setQuery(value);
+  };
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -53,7 +58,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
             placeholder="Search movies..."
             autoFocus
             value={query}
-            onChange={(ev) => setQuery(ev.target.value)}
+            onChange={handleChange}
           />
           <button className={styles.button} type="submit">
             Search

@@ -2,7 +2,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import css from "./App.module.css";
 import fetchMovies from "../../services/movieService";
 import toast, { Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import type { Movie } from "../../types/movie";
 import Loader from "../Loader/Loader";
@@ -13,46 +13,14 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isOpenModal, setISOpenModal] = useState(() => {
-    const savedStatus = window.localStorage.getItem("openmodal-status");
-    try {
-      return savedStatus ? JSON.parse(savedStatus) : false;
-    } catch {
-      return false;
-    }
-  });
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(() => {
-    const savedMovie = window.localStorage.getItem("selected-movie");
-    try {
-      return savedMovie ? JSON.parse(savedMovie) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
-  const openModal = () => setISOpenModal(true);
+  const openModal = () => setIsOpenModal(true);
   const closeModal = () => {
-    setISOpenModal(false);
+    setIsOpenModal(false);
     setSelectedMovie(null);
   };
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      "openmodal-status",
-      JSON.stringify(isOpenModal)
-    );
-  }, [isOpenModal]);
-
-  useEffect(() => {
-    if (selectedMovie) {
-      window.localStorage.setItem(
-        "selected-movie",
-        JSON.stringify(selectedMovie)
-      );
-    } else {
-      window.localStorage.removeItem("selected-movie");
-    }
-  }, [selectedMovie]);
 
   const handleSearch = async (query: string) => {
     try {
