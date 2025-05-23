@@ -3,7 +3,7 @@ import css from "./App.module.css";
 import fetchMovies from "../../services/movieService";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
-import MovieGrid from "../MovieGrid.tsx/MovieGrid";
+import MovieGrid from "../MovieGrid/MovieGrid";
 import type { Movie } from "../../types/movie";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
